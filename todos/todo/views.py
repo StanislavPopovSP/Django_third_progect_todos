@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm # Создаем форм
 
 
 def signupuser(request):
-    return render(request, 'todo/signupuser.html', {'form': UserCreationForm()})
+    return render(request, 'todo/signupuser.html', {'form': UserCreationForm()}) # UserCreationForm() - вызываем как функцию
 
 def currenttodos(request):
     return render(request, 'todo/currenttodos.html')
