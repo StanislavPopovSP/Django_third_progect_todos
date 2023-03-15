@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Создаем форму входа в личный кабинет, а затем форму аутентификации.
 from django.contrib.auth.models import User  # Возможность регистрации, User - это таблица в БД.
-from django.contrib.auth import login, logout  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться).
+from django.contrib.auth import login, logout, authenticate  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться), после этого аутентификация(Авторизация).
 from django.db import IntegrityError  # Для exept импортируем модуль
 
 
@@ -35,6 +35,14 @@ def signupuser(request):
 def loginuser(request):
     if request.method == 'GET':  # Метод GET - это если мы зайдем на эту страницу
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
+    else:  # Пропишем авторизацию пользователя
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])  # вторым параметром передаем по каким полям мы будем аутентифицироваться, будем передавать именованные значения.
+        # А что будет если пользователя в БД с таким именем нету
+        if user is None:
+            return render(request, 'todo/loginuser.html',
+                          {'form': AuthenticationForm(),
+                           'error': 'Неверные данные для входа'
+                           })  # Тогда мы пользователя должны перенаправить на страницу входа назад
 
 
 def logoutuser(request):
