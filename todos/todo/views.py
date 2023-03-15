@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm  # Создаем форму входа в личный кабинет
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Создаем форму входа в личный кабинет, а затем форму аутентификации.
 from django.contrib.auth.models import User  # Возможность регистрации, User - это таблица в БД.
 from django.contrib.auth import login, logout  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться).
 from django.db import IntegrityError  # Для exept импортируем модуль
@@ -31,6 +31,10 @@ def signupuser(request):
                 'error': 'Пароли не совпадают'
             })  # Если не совпали пароли
 
+
+def loginuser(request):
+    if request.method == 'GET':
+        return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
 
 def logoutuser(request):
     if request.method == 'POST': # Метод POST может быть только у элемента form

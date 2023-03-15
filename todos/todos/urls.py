@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Auth
     path('signup/', views.signupuser, name='signupuser'), # страница для входа в личный кабинет
+    path('login/', views.loginuser, name='loginuser'), # Реализуем авторизацию пользователя в личный кабинет.
     path('logout/', views.logoutuser, name='logoutuser'), # путь для кнопки выхода
 
     # Todos
