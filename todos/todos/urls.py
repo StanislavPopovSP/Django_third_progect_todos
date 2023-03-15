@@ -19,6 +19,12 @@ from todo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', views.signupuser, name='signupuser'), # 1 страница для входа в личный кабинет
+
+    # Auth
+    path('signup/', views.signupuser, name='signupuser'), # страница для входа в личный кабинет
+    path('logout/', views.logoutuser, name='logoutuser'), # путь для кнопки выхода
+
+    # Todos
+    path('', views.home, name='home'), # После выхода(когда разлогинились) перенаправит на гланую страницу
     path('current/', views.currenttodos, name='currenttodos'), # Наши задачи
 ]

@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm  # Создаем форму входа в личный кабинет
 from django.contrib.auth.models import User  # Возможность регистрации, User - это таблица в БД.
-from django.contrib.auth import login  # Нужно пользователя залогинить
+from django.contrib.auth import login, logout  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться).
 from django.db import IntegrityError  # Для exept импортируем модуль
+
+
+def home(request):
+    return render(request, 'todo/home.html')
 
 
 def signupuser(request):
@@ -26,6 +30,12 @@ def signupuser(request):
                 'form': UserCreationForm(),
                 'error': 'Пароли не совпадают'
             })  # Если не совпали пароли
+
+
+def logoutuser(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')  # Куда мы должны перейти когда разлогинились
 
 
 def currenttodos(request):
