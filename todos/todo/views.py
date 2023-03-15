@@ -33,7 +33,7 @@ def signupuser(request):
 
 
 def loginuser(request):
-    if request.method == 'GET':
+    if request.method == 'GET': # Метод GET - это если мы зайдем на эту страницу
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
 
 def logoutuser(request):
