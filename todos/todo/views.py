@@ -33,11 +33,12 @@ def signupuser(request):
 
 
 def loginuser(request):
-    if request.method == 'GET': # Метод GET - это если мы зайдем на эту страницу
+    if request.method == 'GET':  # Метод GET - это если мы зайдем на эту страницу
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
 
+
 def logoutuser(request):
-    if request.method == 'POST': # Метод POST может быть только у элемента form
+    if request.method == 'POST':  # Метод POST может быть только у элемента form
         logout(request)
         return redirect('home')  # Куда мы должны перейти когда разлогинились
 
