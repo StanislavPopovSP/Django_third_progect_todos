@@ -33,7 +33,7 @@ def signupuser(request):
 
 
 def logoutuser(request):
-    if request.method == 'POST':
+    if request.method == 'POST': # Метод POST может быть только у элемента form
         logout(request)
         return redirect('home')  # Куда мы должны перейти когда разлогинились
 
