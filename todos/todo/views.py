@@ -36,13 +36,16 @@ def loginuser(request):
     if request.method == 'GET':  # Метод GET - это если мы зайдем на эту страницу
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
     else:  # Пропишем авторизацию пользователя
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])  # вторым параметром передаем по каким полям мы будем аутентифицироваться, будем передавать именованные значения.
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])  # вторым параметром передаем по каким полям мы будем аутентифицироваться, передаем именованные значения.
         # А что будет если пользователя в БД с таким именем нету
         if user is None:
             return render(request, 'todo/loginuser.html',
                           {'form': AuthenticationForm(),
                            'error': 'Неверные данные для входа'
                            })  # Тогда мы пользователя должны перенаправить на страницу входа назад
+        else:
+            login(request, user)  # если пользователь есть, login() - он должен быть авторизирован, проверка на то что он есть
+            return redirect('currenttodos')  # переведем его на задачи
 
 
 def logoutuser(request):
