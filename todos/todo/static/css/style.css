@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif; /* Шрифты без засечек*/
+}
+.wrap {
+    max-width: 1200px; /*максимальная ширина сайта*/
+    margin: 0 auto; /*Что бы данные выводились по центру, 0 с верху с низу auto с лева права*/
+    padding: 10px 30px;
+    box-sizing: border-box;
+}
+.menu {
+    background: #003366;
+    box-shadow: 0 2px 12px 2px #003366; /*Тень 0 - по x сдвиг, 2 - по y, 12 - размытие тени, 2 - расширение тени*/
+}
+ul {
+    list-style: none; /*Уберем маркеры списка*/
+    padding: 0; /*Что бы лишние отступы поуберались*/
+}
+.menu ul {
+    display: flex;
+    justify-content: space-between; /*Что бы в разные стороны пункты меню расходились*/
+    align-items: center; /*вертикальное выравнивание, по центру*/
+    font-size: 20px;
+}
+.menu logo {
+    margin-right: 30%;
+    color: #FFF;
+}
+a {
+    text-decoration: none; /*сделаем все ссылки не подчеркнутые*/
+}
+.menu a {
+    color: #FFF;
+}
