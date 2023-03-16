@@ -3,5 +3,10 @@
 
 <h1>Создание задачи: </h1>
 <!--Нам нужна форма для создания текущей задачи. -> forms.py-->
+<form method="post" class="bg">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form>
+
 
 {% endblock %}
