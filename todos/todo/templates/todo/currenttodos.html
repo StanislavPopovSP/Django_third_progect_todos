@@ -2,5 +2,19 @@
 {% block content %}
 
 <h1>Задачи: </h1>
+<ul>
+    {% for todo in todos %} <!--Будем выводить задачи, так как задач много будем использовать for-->
+    <li> <!--хотим если задача важная либо не важная-->
+        {% if todo.important %}
+        <b>{{ todo.title }}</b>
+        {% else %}
+        {{ todo.title }} <!--Если не важная задача, то выводим без тега bi-->
+        {% endif %}
 
+        {% if todo.memo %}
+        - {{ todo.memo }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
