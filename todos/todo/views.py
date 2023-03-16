@@ -85,5 +85,5 @@ def createtodo(request):
 
 def viewtodo(request, todo_pk):
     """Функция, возвращает данные выбранной задачи пользователя"""
-    todo = get_object_or_404(Todo, pk=todo_pk) # первым параметром функция берет класс модели, вторым pk то что приходит в принимаемый аргумент метода.
-    return render(request, 'todo/viewtodo,html', {'todo': todo})
+    todo = get_object_or_404(Todo, pk=todo_pk) # первым параметром функция берет класс модели, вторым pk(Primary key аналог id) то что приходит в принимаемый аргумент метода. get_object_or_404 - данная функция ограничивает числа которые есть, а не любые которые вводит пользователь(Получить объект или ошибку 404).
+    return render(request, 'todo/viewtodo.html', {'todo': todo})

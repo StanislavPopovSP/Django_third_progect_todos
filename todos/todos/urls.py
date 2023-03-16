@@ -29,5 +29,5 @@ urlpatterns = [
     path('', views.home, name='home'), # После выхода(когда разлогинились) перенаправит на гланую страницу
     path('current/', views.currenttodos, name='currenttodos'), # Наши задачи
     path('create/', views.createtodo, name='createtodo'), # Путь для создания задачи
-    path('todo/<int:todo_pk/>', views.viewtodo, name='viewtodo') # путь конкретной записи, указываем int - id записи, в виде ключа todo_pk. (Для перехода на конкретный путь выбранной задачи)
+    path('todo/<int:todo_pk>/', views.viewtodo, name='viewtodo'), # путь конкретной записи, указываем int - должем быть числовым значением, в виде ключа todo_pk(это id которое будет приходить в функцию вторым параметром). (Для перехода на конкретный путь выбранной задачи)
 ]
