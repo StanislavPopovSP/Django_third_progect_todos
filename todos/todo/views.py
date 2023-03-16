@@ -60,4 +60,17 @@ def currenttodos(request):
 
 
 def createtodo(request):
-    return render(request, 'todo/createtodo.html', {'form': TodoForm()}) # TodoForm() - вызовем как экземпляр класса
+    if request.method == 'GET':
+        return render(request, 'todo/createtodo.html', {'form': TodoForm()}) # TodoForm() - вызовем как экземпляр класса
+    else:
+        try:
+            form = TodoForm(request.POST) # В переменную form запишутся данные которые получены будут методом POST из формы TodoForm.
+            new_todo = form.save(commit=False) # сохраняем данные которые ввел пользователь. commit=False - это значит что он сохраняет данные в БД.
+            new_todo.user = request.user # нужно сохранить данные привязанные к пользователю. Укажем что бы сохранял данные, того пользователя, который заполнял это поле авторизированный на сайте. Какой именно пользователь эти данные создал.
+            new_todo.save() # Так же данные эти нужно сохранить
+            return redirect('currenttodos') # Перенаправляем пользователя, на все задачи которые сущ-ют
+        except ValueError: # Это наши вводимые значения
+            return render(request, 'todo/createtodo.html', {
+                           'form': TodoForm(),
+                           'error': 'Переданы неверные данные. Попробуйте еще раз.'
+                          })
