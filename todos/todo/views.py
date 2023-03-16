@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # С
 from django.contrib.auth.models import User  # Возможность регистрации, User - это таблица в БД.
 from django.contrib.auth import login, logout, authenticate  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться), после этого аутентификация(Авторизация).
 from django.db import IntegrityError  # Для exept импортируем модуль
+from .forms import TodoForm
 
 
 def home(request):
@@ -59,4 +60,4 @@ def currenttodos(request):
 
 
 def createtodo(request):
-    return render(request, 'todo/createtodo.html')
+    return render(request, 'todo/createtodo.html', {'form': TodoForm()}) # TodoForm() - вызовем как экземпляр класса
