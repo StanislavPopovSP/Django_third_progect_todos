@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404 # когда мы обратимся к id строки кот-й нет, либо возвращается объект, либо ошибка 404.
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Создаем форму входа в личный кабинет, а затем форму аутентификации.
 from django.contrib.auth.models import User  # Возможность регистрации, User - это таблица в БД.
 from django.contrib.auth import login, logout, authenticate  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться), после этого аутентификация(Авторизация).
@@ -81,3 +81,9 @@ def createtodo(request):
                            'form': TodoForm(),
                            'error': 'Переданы неверные данные. Попробуйте еще раз.'
                           })
+
+
+def viewtodo(request, todo_pk):
+    """Функция, возвращает данные выбранной задачи пользователя"""
+    todo = get_object_or_404(Todo, pk=todo_pk) # первым параметром функция берет класс модели, вторым pk то что приходит в принимаемый аргумент метода.
+    return render(request, 'todo/viewtodo,html', {'todo': todo})
