@@ -4,9 +4,11 @@ from django.contrib.auth.models import User  # Возможность регис
 from django.contrib.auth import login, logout, authenticate  # Нужно пользователя залогинить, затем что бы вышел(разлогиниться), после этого аутентификация(Авторизация).
 from django.db import IntegrityError  # Для exept импортируем модуль
 from .forms import TodoForm
+from .models import Todo # имортируем модель Тodo для получения данных.
 
 
 def home(request):
+    """Функция, перехода на главную страницу"""
     return render(request, 'todo/home.html')
 
 
@@ -34,6 +36,7 @@ def signupuser(request):
 
 
 def loginuser(request):
+    """Функция, для авторизации пользователя"""
     if request.method == 'GET':  # Метод GET - это если мы зайдем на эту страницу
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
     else:  # Пропишем авторизацию пользователя
@@ -50,16 +53,20 @@ def loginuser(request):
 
 
 def logoutuser(request):
+    """Функция, кнопки выхода из аккаунта"""
     if request.method == 'POST':  # Метод POST может быть только у элемента form
         logout(request)
         return redirect('home')  # Куда мы должны перейти когда разлогинились
 
 
-def currenttodos(request):
-    return render(request, 'todo/currenttodos.html')
+def currenttodos(request): # Будем выводить задачи (словарь из todos)
+    """Функция, для вывода задач"""
+    todos = Todo.objects.filter(user=request.user, data_completed__isnull=True) # filter() - метод, который дает возможность сделать какую то выборку. user=request.user - для текущего пользователя(что бы видел только свои записи). data_completed__isnull=True - это мы после выполнения задачи даем возможность её удалить. Допускается data_completed со значением isnull.
+    return render(request, 'todo/currenttodos.html', {'todos': todos})
 
 
 def createtodo(request):
+    """Функция, для заполнения формы пользователем"""
     if request.method == 'GET':
         return render(request, 'todo/createtodo.html', {'form': TodoForm()}) # TodoForm() - вызовем как экземпляр класса
     else:
