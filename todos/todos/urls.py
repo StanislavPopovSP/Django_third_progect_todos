@@ -28,4 +28,5 @@ urlpatterns = [
     # Todos
     path('', views.home, name='home'), # После выхода(когда разлогинились) перенаправит на гланую страницу
     path('current/', views.currenttodos, name='currenttodos'), # Наши задачи
+    path('create/', views.createtodo, name='createtodo') # Путь для создания задачи
 ]

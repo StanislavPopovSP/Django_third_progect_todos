@@ -56,3 +56,7 @@ def logoutuser(request):
 
 def currenttodos(request):
     return render(request, 'todo/currenttodos.html')
+
+
+def createtodo(request):
+    return render(request, 'todo/createtodo.html')
