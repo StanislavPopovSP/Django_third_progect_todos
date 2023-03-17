@@ -78,3 +78,14 @@ input {
     border: none;
     color: #FFF;
 }
+.content li {
+    box-shadow: 0 2px 8px 2px #003366; /*Попробуем отделить за счет тени, 0 сдвиг по оси x 2px по оси y 8 px это размытие тени 2px это расширение тени */
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+.content a {
+    color: #000;
+    display: block; /*сделаем блочным*/
+    padding: 20px;
+    box-sizing: border-box;
+}
