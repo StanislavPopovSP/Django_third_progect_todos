@@ -89,3 +89,16 @@ input {
     padding: 20px;
     box-sizing: border-box;
 }
+.but {
+    display: flex;
+    align-items: flex-end;
+}
+.good {
+    background-color: teal;
+}
+.remove {
+    background: orangered;
+}
+a b {
+    color: orangered;
+}
