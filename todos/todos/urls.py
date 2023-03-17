@@ -31,4 +31,5 @@ urlpatterns = [
     path('create/', views.createtodo, name='createtodo'), # Путь для создания задачи
     path('todo/<int:todo_pk>/', views.viewtodo, name='viewtodo'), # путь конкретной записи, указываем int - должем быть числовым значением, в виде ключа todo_pk(это id которое будет приходить в функцию вторым параметром). (Для перехода на конкретный путь выбранной задачи)
     path('todo/<int:todo_pk>/complete', views.completetodo, name='completetodo'), # путь для создания какой-то выполненной задачи.
+    path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo'),
 ]

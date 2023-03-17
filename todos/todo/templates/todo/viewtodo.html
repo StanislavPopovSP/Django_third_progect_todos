@@ -15,4 +15,9 @@
     <button class="btn good">Выполнено</button>
 </form>
 
+<form action="{% url 'deletetodo' todo.id %}" method="post"> <!--Должны указать куда нас перенаправит-->
+    {% csrf_token %}
+    <button class="btn remove">Удалить</button>
+</form>
+
 {% endblock %}
