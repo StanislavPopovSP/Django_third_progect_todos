@@ -5,6 +5,7 @@
 <ul>
     {% for todo in todos %} <!--Будем выводить задачи, так как задач много будем использовать for-->
     <li> <!--хотим если задача важная либо не важная-->
+        <a href="{% url 'viewtodo' todo.id %}"> <!--тодо(у каждого поля модели есть id кот-й мы не видим)  -->
         {% if todo.important %}
         <b>{{ todo.title }}</b>
         {% else %}
@@ -14,6 +15,7 @@
         {% if todo.memo %}
         - {{ todo.memo }}
         {% endif %}
+        </a>
     </li>
     {% endfor %}
 </ul>
