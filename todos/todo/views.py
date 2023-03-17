@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate  # Нужно пол
 from django.db import IntegrityError  # Для exept импортируем модуль
 from .forms import TodoForm
 from .models import Todo # имортируем модель Тodo для получения данных.
+from django.utils import timezone
 
 
 def home(request):
@@ -96,3 +97,11 @@ def viewtodo(request, todo_pk):
             return redirect('currenttodos')
         except ValueError: # Обработаем ошибку значения.
             return render(request, 'todo/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Неверные данные'})
+
+
+def completetodo(request, todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) # точно так же будем получать элемент по id из модели Тодо, что бы задача была выполнена, надо что бы автор только мог это сделать.
+    if request.method == 'POST':
+        todo.data_completed = timezone.now() # автоматически будет заполняться поле текущие даты и времени, в случае выполнения задачи когда мы нажмём на определенную кнопку.
+        todo.save()
+        return redirect('currenttodos') # из currenttodos этот элемент будет изчезать
