@@ -10,4 +10,9 @@
     <button class="btn">Сохранить</button>
 </form>
 
+<form action="{% url 'completetodo' todo.id %}" method="post"> <!--Должны указать куда нас перенаправит-->
+    {% csrf_token %}
+    <button class="btn good">Выполнено</button>
+</form>
+
 {% endblock %}
