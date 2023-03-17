@@ -23,7 +23,7 @@ ul {
     align-items: center; /*вертикальное выравнивание, по центру*/
     font-size: 20px;
 }
-.menu logo {
+.menu .logo {
     margin-right: 30%;
     color: #FFF;
 }

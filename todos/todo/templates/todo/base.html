@@ -16,6 +16,7 @@
             <li class="logo"><a href="">Пользователь: {{ user.username }}</a></li>
             <li><a href="{% url 'createtodo' %}">Создать</a></li> <!--Нужно вывести форму для создания новых задач-->
             <li><a href="{% url 'currenttodos' %}">Актуальные</a></li>
+            <li><a href="{% url 'completedtodo' %}">Выполненные</a></li>
             <li> <!--Выйти будет когда пользователь аутентифицирован-->
                 <form action="{% url 'logoutuser' %}" method="post"> <!--А если видим method="post", обязательно должен быть подключен csrf_token токен, action - нужен для перехода.-->
                     {% csrf_token %}
@@ -37,11 +38,11 @@
 {% endif %}
 
 <div class="content">
-<div class="wrap">
-    <!--Блок, куда будет попадать информация из наших приложений-->
-    {% block content %}
-    {% endblock %}
-</div>
+    <div class="wrap">
+        <!--Блок, куда будет попадать информация из наших приложений-->
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>

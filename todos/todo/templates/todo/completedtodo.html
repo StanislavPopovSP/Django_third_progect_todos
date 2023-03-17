@@ -1,7 +1,7 @@
 {% extends 'todo/base.html' %}
 {% block content %}
 
-<h1>Задачи: </h1>
+<h1>Завершено: </h1>
 <ul>
     {% for todo in todos %} <!--Будем выводить задачи, так как задач много будем использовать for-->
     <li>
@@ -15,6 +15,7 @@
         {% if todo.memo %}
         - {{ todo.memo }}
         {% endif %}
+            {{ todo.data_completed|date:'M j Y H:i' }} <!--Добавим фильтр, формат времени-->
         </a>
     </li>
     {% endfor %}
