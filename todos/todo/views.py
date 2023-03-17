@@ -109,7 +109,12 @@ def completetodo(request, todo_pk):
 
 
 def deletetodo(request, todo_pk):
+    """Функция, удаляет выбранную задачу пользователя."""
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.delete()
         return redirect('currenttodos')
+
+def completedtodo(request):
+    todos = Todo.objects.filter(user=request.user, data_completed__isnull=False).order_by('-data_completed') # Выполненные задачи привязываем к конкретному пользователю, data_completed__isnull=False теперь данное поле не пустое, так как нажав на кнопку выполнено, зафиксировалась дата ее выполнения, order_by('') будем выводить последняя запись которая была выполнена,что бы последняя задача была с верху -data_completed по убыванию.
+    return render(request, 'todo/completedtodo.html', {'todos': todos})
