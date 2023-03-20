@@ -6,6 +6,7 @@ from django.db import IntegrityError  # Для exept импортируем мо
 from .forms import TodoForm
 from .models import Todo  # имортируем модель Тodo для получения данных.
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required ## Если мы хотим что бы страница была доступна только зарегистрированным пользователям, мы можем указать декоратор над каким то обработчиком. С помощью его мы можем ограничить какие страницы мы разрешаем посещать незарегистрированным пользователям, а какие зарегистрированным.
 
 
 def home(request):
@@ -53,6 +54,7 @@ def loginuser(request):
             return redirect('currenttodos')  # переведем его на задачи
 
 
+@login_required
 def logoutuser(request):
     """Функция, кнопки выхода из аккаунта."""
     if request.method == 'POST':  # Метод POST может быть только у элемента form
@@ -60,12 +62,14 @@ def logoutuser(request):
         return redirect('home')  # Куда мы должны перейти когда разлогинились
 
 
+@login_required
 def currenttodos(request):  # Будем выводить задачи (словарь из todos)
     """Функция, для вывода задач."""
     todos = Todo.objects.filter(user=request.user, data_completed__isnull=True)  # filter() - метод, который дает возможность сделать какую то выборку. user=request.user - для текущего пользователя(что бы видел только свои записи). data_completed__isnull=True - это мы после выполнения задачи даем возможность её удалить. Допускается data_completed со значением isnull.
     return render(request, 'todo/currenttodos.html', {'todos': todos})
 
 
+@login_required
 def createtodo(request):
     """Функция, для заполнения формы пользователем."""
     if request.method == 'GET':
@@ -84,6 +88,7 @@ def createtodo(request):
             })
 
 
+@login_required
 def viewtodo(request, todo_pk):
     """Функция, возвращает данные выбранной задачи пользователя, с возможностью ее редактирования."""
     todo = get_object_or_404(Todo, pk=todo_pk)  # первым параметром функция берет класс модели, вторым pk(Primary key аналог id) то что приходит в принимаемый аргумент метода. get_object_or_404 - данная функция ограничивает числа которые есть, а не любые которые вводит пользователь(Получить объект или ошибку 404).
@@ -99,6 +104,7 @@ def viewtodo(request, todo_pk):
             return render(request, 'todo/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Неверные данные'})
 
 
+@login_required
 def completetodo(request, todo_pk):
     """Функция, обрабатывает кнопку выполнено, в актуальных задачах."""
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)  # точно так же будем получать элемент по id из модели Тодо, что бы задача была выполнена, надо что бы автор только мог это сделать.
@@ -108,6 +114,7 @@ def completetodo(request, todo_pk):
         return redirect('currenttodos')  # из currenttodos этот элемент будет изчезать
 
 
+@login_required
 def deletetodo(request, todo_pk):
     """Функция, удаляет выбранную задачу пользователя."""
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
@@ -115,6 +122,9 @@ def deletetodo(request, todo_pk):
         todo.delete()
         return redirect('currenttodos')
 
+
+@login_required
 def completedtodo(request):
     todos = Todo.objects.filter(user=request.user, data_completed__isnull=False).order_by('-data_completed') # Выполненные задачи привязываем к конкретному пользователю, data_completed__isnull=False теперь данное поле не пустое, так как нажав на кнопку выполнено, зафиксировалась дата ее выполнения, order_by('') будем выводить последняя запись которая была выполнена,что бы последняя задача была с верху -data_completed по убыванию.
     return render(request, 'todo/completedtodo.html', {'todos': todos})
+
