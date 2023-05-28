@@ -1,7 +1,14 @@
 .idea
+idea
+.DS_Store
 venv
 
 __pycache__
-*.py[com]
+*/__pycache__
+*.py[com]*
+*.py[cod]
+
+!*media/.gitkeep
+media/*
 
 *test*
