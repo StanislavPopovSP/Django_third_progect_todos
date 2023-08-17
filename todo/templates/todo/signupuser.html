@@ -2,6 +2,8 @@
 {% block content %}
 
 <h1>Регистрация: </h1>
+<h2>{{ error }}</h2>
+
 <form method="post" class="register">
     {% csrf_token %}
     {{ form.as_p }} <!--.as_p - Это служебное свойство, кот может доб-ся в form для того что бы input окружился тегами p-->
